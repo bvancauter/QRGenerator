@@ -14,6 +14,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <TextBlock
@@ -46,5 +47,15 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
             Margin="0,25,0,0"/>
+        
+        <Button
+            Grid.Row="4"
+            Content="Save QR Code"
+            FontSize="14"
+            Height="32"
+            Width="140"
+            HorizontalAlignment="Center"
+            Margin="0,10,0,0"
+            Click="SaveButton_Click"/>
     </Grid>
 </Window>

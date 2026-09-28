@@ -1,4 +1,5 @@
-﻿using QRCoder;
+﻿using Microsoft.Win32;
+using QRCoder;
 using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
@@ -8,6 +9,7 @@ namespace QRGenerator {
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window {
+        private byte[]? _qrCodeBytes;
         public MainWindow() {
             InitializeComponent();
         }
@@ -25,9 +27,9 @@ namespace QRGenerator {
 
             PngByteQRCode qrCode = new PngByteQRCode(qrCodeData);
 
-            byte[] qrCodeBytes = qrCode.GetGraphic(20);
+            _qrCodeBytes = qrCode.GetGraphic(20);
 
-            MemoryStream stream = new MemoryStream(qrCodeBytes);
+            MemoryStream stream = new MemoryStream(_qrCodeBytes);
 
             BitmapImage image = new BitmapImage();
             image.BeginInit();
@@ -36,6 +38,29 @@ namespace QRGenerator {
             image.EndInit();
 
             QRCodeImage.Source = image;
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e) {
+            if (_qrCodeBytes == null) {
+                MessageBox.Show("Please generate a QR code before saving.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog {
+                InitialDirectory = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+                    "Downloads"),
+                FileName = Guid.NewGuid().ToString() + ".png",
+                DefaultExt = ".png",
+                Filter = "PNG Image|*.png"
+            };
+
+            bool? result = saveFileDialog.ShowDialog();
+            if (result != true) {
+                return;
+            }
+
+            File.WriteAllBytes(saveFileDialog.FileName, _qrCodeBytes);
         }
     }
 }
