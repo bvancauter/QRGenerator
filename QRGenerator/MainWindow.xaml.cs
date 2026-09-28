@@ -1,13 +1,7 @@
-﻿using System.Text;
+﻿using QRCoder;
+using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace QRGenerator {
     /// <summary>
@@ -16,6 +10,32 @@ namespace QRGenerator {
     public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
+        }
+
+        private void GenerateButton_Click(object sender, RoutedEventArgs e) {
+            string content = ContentTextBox.Text;
+            if (string.IsNullOrWhiteSpace(content)) {
+                MessageBox.Show("Please enter some content to generate a QR code.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(content, QRCodeGenerator.ECCLevel.Q);
+
+            PngByteQRCode qrCode = new PngByteQRCode(qrCodeData);
+
+            byte[] qrCodeBytes = qrCode.GetGraphic(20);
+
+            MemoryStream stream = new MemoryStream(qrCodeBytes);
+
+            BitmapImage image = new BitmapImage();
+            image.BeginInit();
+            image.StreamSource = stream;
+            image.CacheOption = BitmapCacheOption.OnLoad;
+            image.EndInit();
+
+            QRCodeImage.Source = image;
         }
     }
 }
