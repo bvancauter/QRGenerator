@@ -27,7 +27,11 @@ namespace QRGenerator {
 
             PngByteQRCode qrCode = new PngByteQRCode(qrCodeData);
 
-            _qrCodeBytes = qrCode.GetGraphic(20);
+            if (TransparentBackgroundRadioButton.IsChecked == true) {
+                _qrCodeBytes = qrCode.GetGraphic(20, System.Drawing.Color.Black, System.Drawing.Color.Transparent);
+            } else {
+                _qrCodeBytes = qrCode.GetGraphic(20, System.Drawing.Color.Black, System.Drawing.Color.White);
+            }
 
             MemoryStream stream = new MemoryStream(_qrCodeBytes);
 

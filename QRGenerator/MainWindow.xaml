@@ -6,15 +6,18 @@
         xmlns:local="clr-namespace:QRGenerator"
         mc:Ignorable="d"
         Title="QR Code Generator"
-        Height="600"
+        Height="700"
         Width="800">
+
     <Grid Margin="30">
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <TextBlock
@@ -29,35 +32,61 @@
             FontSize="16"
             Padding="9"/>
 
-        <Button
+        <TextBlock
             Grid.Row="2"
-            Content="Generate QR Code"
+            Text="Background"
             FontSize="14"
-            Height="32"
-            Width="140"
-            HorizontalAlignment="Left"
-            Margin="0,8,0,0"
-            Click="GenerateButton_Click"/>
+            Margin="0,15,0,5"/>
+
+        <StackPanel
+            Grid.Row="3"
+            Orientation="Horizontal">
+
+            <RadioButton
+                x:Name="WhiteBackgroundRadioButton"
+                Content="White"
+                IsChecked="True"
+                Margin="0,0,20,0"/>
+
+            <RadioButton
+                x:Name="TransparentBackgroundRadioButton"
+                Content="Transparent"/>
+
+        </StackPanel>
+
+        <StackPanel
+            Grid.Row="4"
+            Orientation="Horizontal"
+            HorizontalAlignment="Center"
+            Margin="0,15,0,0">
+
+            <Button
+                Content="Generate QR Code"
+                FontSize="14"
+                Height="32"
+                Width="140"
+                Click="GenerateButton_Click"/>
+
+            <Button
+                x:Name="SaveButton"
+                Content="Save QR Code"
+                FontSize="14"
+                Height="32"
+                Width="140"
+                Margin="15,0,0,0"
+                IsEnabled="False"
+                Click="SaveButton_Click"/>
+
+        </StackPanel>
 
         <Image
             x:Name="QRCodeImage"
-            Grid.Row="3"
+            Grid.Row="5"
             Width="300"
             Height="300"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
             Margin="0,25,0,0"/>
-        
-        <Button
-            x:Name="SaveButton"
-            Grid.Row="4"
-            Content="Save QR Code"
-            FontSize="14"
-            Height="32"
-            Width="140"
-            HorizontalAlignment="Center"
-            Margin="0,10,0,0"
-            IsEnabled="False"
-            Click="SaveButton_Click"/>
+
     </Grid>
 </Window>
