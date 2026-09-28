@@ -38,6 +38,7 @@ namespace QRGenerator {
             image.EndInit();
 
             QRCodeImage.Source = image;
+            SaveButton.IsEnabled = true;
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e) {
