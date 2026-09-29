@@ -42,7 +42,25 @@ namespace QRGenerator {
             image.EndInit();
 
             QRCodeImage.Source = image;
+            CopyButton.IsEnabled = true;
             SaveButton.IsEnabled = true;
+        }
+
+        private void CopyButton_Click(object sender, RoutedEventArgs e) {
+            if (_qrCodeBytes == null) {
+                MessageBox.Show("Please generate a QR code before copying.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            MemoryStream stream = new MemoryStream(_qrCodeBytes);
+
+            BitmapImage image = new BitmapImage();
+            image.BeginInit();
+            image.CacheOption = BitmapCacheOption.OnLoad;
+            image.StreamSource = stream;
+            image.EndInit();
+
+            Clipboard.SetImage(image);
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e) {

@@ -66,6 +66,16 @@
                 Height="32"
                 Width="140"
                 Click="GenerateButton_Click"/>
+            
+            <Button
+                x:Name="CopyButton"
+                Content="Copy QR Code"
+                FontSize="14"
+                Height="32"
+                Width="140"
+                Margin="15,0,0,0"
+                IsEnabled="False"
+                Click="CopyButton_Click"/>
 
             <Button
                 x:Name="SaveButton"
