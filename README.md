@@ -5,8 +5,8 @@ A simple Windows desktop application for generating QR codes from text and expor
 ## Features
 
 - Generate QR codes from text
-- Export QR codes as PNG images
-- Save generated QR codes directly from the application
+- Copy QR codes to the clipboard
+- Save generated QR codes as PNG images directly from the application
 - Choose between:
   - White background
   - Transparent background
