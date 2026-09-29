@@ -42,8 +42,21 @@ namespace QRGenerator {
             image.EndInit();
 
             QRCodeImage.Source = image;
+            ClearButton.IsEnabled = true;
             CopyButton.IsEnabled = true;
             SaveButton.IsEnabled = true;
+        }
+
+        private void ClearButton_Click(object sender, RoutedEventArgs e) {
+            ContentTextBox.Clear();
+
+            QRCodeImage.Source = null;
+
+            _qrCodeBytes = null;
+
+            ClearButton.IsEnabled = false;
+            CopyButton.IsEnabled = false;
+            SaveButton.IsEnabled = false;
         }
 
         private void CopyButton_Click(object sender, RoutedEventArgs e) {
